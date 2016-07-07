@@ -6,7 +6,7 @@ module.exports = function(grunt) {
       options: {
         separator: ';'
       },
-      dist: {
+      target: {
         files: {
           'public/dist/libraries.js': ['public/lib/jquery.js',
                                   'public/lib/underscore.js',
@@ -33,11 +33,14 @@ module.exports = function(grunt) {
     },
 
     uglify: {
-      dist: {
-        files: {
-          'public/dist/libraries.min.js': ['public/dist/libraries.js'],
-          'public/dist/client.min.js': ['public/dist/client.js']
-        }
+      target: {
+        files: [{
+          expand: true,
+          cwd: 'public/dist/',
+          src: ['*.js', '!*.min.js'],
+          dest: 'public/dist/',
+          ext: '.min.js'
+        }]
       }
     },
 
@@ -48,7 +51,15 @@ module.exports = function(grunt) {
     },
 
     cssmin: {
-        // Add list of files to lint here
+      target: {
+        files: [{
+          expand: true,
+          cwd: 'public/',
+          src: ['*.css', '!*.min.css'],
+          dest: 'public/dist',
+          ext: '.min.css'
+        }]
+      }
     },
 
     watch: {
@@ -95,8 +106,7 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', ['concat', 'uglify'
-  ]);
+  grunt.registerTask('build', ['concat', 'uglify', 'cssmin']);
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
