@@ -83,8 +83,10 @@ module.exports = function(grunt) {
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
       // add your production server task here
+      // Is true when "grunt upload --prod" is run
     } else {
       grunt.task.run([ 'server-dev' ]);
+      // grunt upload
     }
   });
 
