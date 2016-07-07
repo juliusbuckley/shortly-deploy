@@ -45,9 +45,7 @@ module.exports = function(grunt) {
     },
 
     eslint: {
-      target: [
-        // Add list of files to lint here
-      ]
+      target: ['public/client/*']
     },
 
     cssmin: {
@@ -106,7 +104,7 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', ['concat', 'uglify', 'cssmin']);
+  grunt.registerTask('build', ['eslint', 'concat', 'uglify', 'cssmin', 'test']);
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
