@@ -33,6 +33,12 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+      dist: {
+        files: {
+          'public/dist/libraries.min.js': ['public/dist/libraries.js'],
+          'public/dist/client.min.js': ['public/dist/client.js']
+        }
+      }
     },
 
     eslint: {
@@ -89,7 +95,7 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', ['concat'
+  grunt.registerTask('build', ['concat', 'uglify'
   ]);
 
   grunt.registerTask('upload', function(n) {
