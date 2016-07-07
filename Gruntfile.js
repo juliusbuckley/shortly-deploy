@@ -114,7 +114,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-git');
 
   grunt.registerTask('server-dev', function (target) {
-    grunt.task.run([ 'concurrent' ]);
+    grunt.task.run([ 'build', 'concurrent' ]);
   });
 
   ////////////////////////////////////////////////////
