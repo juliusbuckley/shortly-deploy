@@ -9,9 +9,9 @@ module.exports = function(grunt) {
       target: {
         files: {
           'public/dist/libraries.js': ['public/lib/jquery.js',
-                                  'public/lib/underscore.js',
-                                  'public/lib/backbone.js',
-                                  'public/lib/handlebars.js'],
+                                       'public/lib/underscore.js',
+                                       'public/lib/backbone.js',
+                                       'public/lib/handlebars.js'],
           'public/dist/client.js': ['public/client/*']
         }
       }
@@ -31,6 +31,14 @@ module.exports = function(grunt) {
         tasks: ['nodemon', 'watch'],
         options: {
           logConcurrentOutput: true
+        }
+      }
+    },
+
+    gitpush: {
+      target: {
+        options: {
+          remote: 'live'
         }
       }
     },
@@ -103,6 +111,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-concurrent');
+  grunt.loadNpmTasks('grunt-git');
 
   grunt.registerTask('server-dev', function (target) {
     grunt.task.run([ 'concurrent' ]);
@@ -118,19 +127,13 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', ['eslint', 'concat', 'uglify', 'cssmin', 'test']);
 
-  grunt.registerTask('upload', function(n) {
+  grunt.registerTask('deploy', function(n) {
     if (grunt.option('prod')) {
       // add your production server task here
-      // Is true when "grunt upload --prod" is run
+      // Is true when "grunt deploy --prod" is run
+      grunt.task.run(['build', 'gitpush']);
     } else {
       grunt.task.run([ 'server-dev' ]);
-      // grunt upload
     }
   });
-
-  grunt.registerTask('deploy', [
-      // add your production server task here
-  ]);
-
-
 };
