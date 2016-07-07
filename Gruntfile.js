@@ -26,9 +26,21 @@ module.exports = function(grunt) {
       }
     },
 
+    concurrent: {
+      dev: {
+        tasks: ['nodemon', 'watch'],
+        options: {
+          logConcurrentOutput: true
+        }
+      }
+    },
+
     nodemon: {
       dev: {
-        script: 'server.js'
+        script: 'server.js',
+        options: {
+          delay: 1000
+        }
       }
     },
 
@@ -67,8 +79,7 @@ module.exports = function(grunt) {
           'public/lib/**/*.js',
         ],
         tasks: [
-          'concat',
-          'uglify'
+          'build',
         ]
       },
       css: {
@@ -91,9 +102,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-concurrent');
 
   grunt.registerTask('server-dev', function (target) {
-    grunt.task.run([ 'nodemon', 'watch' ]);
+    grunt.task.run([ 'concurrent' ]);
   });
 
   ////////////////////////////////////////////////////
