@@ -38,5 +38,3 @@ app.post('/signup', handler.signupUser);
 app.get('/*', handler.navToLink);
 
 module.exports = app;
-
-// change 4
