@@ -1,4 +1,7 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/shortly');
+
+var url = process.env.DATABASEURL || 'mongodb://localhost:27017/shortly';
+
+mongoose.connect(url);
 
 module.exports = mongoose;
